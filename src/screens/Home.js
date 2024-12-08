@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Linking } from "react-native";
 import {
   Text,
   Layout,
@@ -16,35 +16,49 @@ const Home = ({ navigation }) => {
   const { isDarkmode, setTheme } = useTheme();
   return (
     <Layout>
-      <TopNav
-        middleContent="Home"
-        rightContent={
-          <Ionicons
-            name={isDarkmode ? "sunny" : "moon"}
-            size={25}
-            color={isDarkmode ? themeColor.white : themeColor.dark}
-          />
-        }
-        rightAction={() => {
-          if (isDarkmode) {
-            setTheme("light");
-          } else {
-            setTheme("dark");
-          }
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          marginHorizontal: 20,
         }}
-      />
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      >
         <Section>
           <SectionContent>
-            <Text style={{ textAlign: "center" }} fontWeight="bold">
-              These components are from rapi ui
+            <Text
+              status="info"
+              fontWeight="bold"
+              style={{ textAlign: "center" }}
+            >
+              Components made with rapi ui{" "}
             </Text>
             <Button
+              text="Rapi Docs"
+              style={{ marginTop: 10 }}
+              onPress={() => {
+                Linking.openURL("https://rapi-ui.kikiding.space/");
+              }}
+            />
+            <Button
+              text="Go to second screen"
+              style={{ marginTop: 10 }}
               onPress={() => {
                 navigation.navigate("SecondScreen");
               }}
+              // status="success"
+            />
+            <Button
+              status={isDarkmode ? "success" : "danger"}
+              text={isDarkmode ? "Light Mode" : "Dark Mode"}
               style={{ marginTop: 10 }}
-              text="Go to SecondScreen"
+              onPress={() => {
+                if (isDarkmode) {
+                  setTheme("light");
+                } else {
+                  setTheme("dark");
+                }
+              }}
             />
           </SectionContent>
         </Section>
